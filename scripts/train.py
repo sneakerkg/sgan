@@ -340,7 +340,7 @@ def main(args):
                 # Save a checkpoint with no model weights by making a shallow
                 # copy of the checkpoint excluding some items
                 checkpoint_path = os.path.join(
-                    args.output_dir, '%s_no_model_%d.pt' % (args.checkpoint_name, k))
+                    args.output_dir, '%s_no_model_%d.pt' % (args.checkpoint_name, t))
                 logger.info('Saving checkpoint to {}'.format(checkpoint_path))
                 key_blacklist = [
                     'g_state', 'd_state', 'g_best_state', 'g_best_nl_state',
