@@ -102,7 +102,10 @@ class TrajectoryDataset(Dataset):
         seq_list_rel = []
         loss_mask_list = []
         non_linear_ped = []
+        num_files = len(all_files)
+        now_file = 0
         for path in all_files:
+
             data = read_file(path, delim)
             frames = np.unique(data[:, 0]).tolist()
             frame_data = []
@@ -157,6 +160,8 @@ class TrajectoryDataset(Dataset):
         seq_list_rel = np.concatenate(seq_list_rel, axis=0)
         loss_mask_list = np.concatenate(loss_mask_list, axis=0)
         non_linear_ped = np.asarray(non_linear_ped)
+
+        print ('Converting to torch')
 
         # Convert numpy -> Torch Tensor
         self.obs_traj = torch.from_numpy(

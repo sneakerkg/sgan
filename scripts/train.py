@@ -285,6 +285,8 @@ def main(args):
 
             # Maybe save a checkpoint
             if t > 0 and t % args.checkpoint_every == 0:
+                print (t, args.checkpoint_every, t % args.checkpoint_every == 0)
+
                 checkpoint['counters']['t'] = t
                 checkpoint['counters']['epoch'] = epoch
                 checkpoint['sample_ts'].append(t)
@@ -329,7 +331,7 @@ def main(args):
                 checkpoint['d_state'] = discriminator.state_dict()
                 checkpoint['d_optim_state'] = optimizer_d.state_dict()
                 checkpoint_path = os.path.join(
-                    args.output_dir, '%s_with_model.pt' % args.checkpoint_name
+                    args.output_dir, '%s_with_model_%d.pt' % (args.checkpoint_name, t)
                 )
                 logger.info('Saving checkpoint to {}'.format(checkpoint_path))
                 torch.save(checkpoint, checkpoint_path)
@@ -338,7 +340,7 @@ def main(args):
                 # Save a checkpoint with no model weights by making a shallow
                 # copy of the checkpoint excluding some items
                 checkpoint_path = os.path.join(
-                    args.output_dir, '%s_no_model.pt' % args.checkpoint_name)
+                    args.output_dir, '%s_no_model_%d.pt' % (args.checkpoint_name, k))
                 logger.info('Saving checkpoint to {}'.format(checkpoint_path))
                 key_blacklist = [
                     'g_state', 'd_state', 'g_best_state', 'g_best_nl_state',
