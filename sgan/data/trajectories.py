@@ -105,6 +105,8 @@ class TrajectoryDataset(Dataset):
         num_files = len(all_files)
         now_file = 0
         for path in all_files:
+            print (now_file, num_files)
+            now_file += 1
 
             data = read_file(path, delim)
             frames = np.unique(data[:, 0]).tolist()
